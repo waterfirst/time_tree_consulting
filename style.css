@@ -153,11 +153,45 @@ section {
     line-height: 1.8;
 }
 
+/* --- History Section --- */
+#history { 
+    background-color: var(--background-color);
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 4rem;
+}
+
+.history-item {
+    background: var(--light-gray);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.history-item h3 {
+    font-family: var(--font-family-display);
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    margin: 0 0 1.5rem 0;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 0.8rem;
+}
+
+.history-item p {
+    margin: 0.5rem 0;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+
 /* --- Strengths Section --- */
 #strengths { 
     background-color: var(--light-gray);
     border-top: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
 }
 
 .strengths-grid {
