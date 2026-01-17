@@ -38,10 +38,35 @@ window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 50);
 });
 
+// --- Mobile Navigation --- //
+const hamburger = document.querySelector('.hamburger');
+const mobileNav = document.querySelector('.mobile-nav');
+const body = document.querySelector('body');
+
+hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('active');
+    body.classList.toggle('nav-open');
+    if (mobileNav.classList.contains('active')) {
+        hamburger.innerHTML = '&times;'; // Change to close icon
+    } else {
+        hamburger.innerHTML = '&#9776;'; // Change back to hamburger
+    }
+});
+
+// Close mobile nav when a link is clicked
+mobileNav.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+        mobileNav.classList.remove('active');
+        body.classList.remove('nav-open');
+        hamburger.innerHTML = '&#9776;';
+    }
+});
+
+
 // --- Three.js Dynamic Background --- //
 let scene, camera, renderer, particles, mouseX = 0, mouseY = 0;
-const windowHalfX = window.innerWidth / 2;
-const windowHalfY = window.innerHeight / 2;
+let windowHalfX = window.innerWidth / 2;
+let windowHalfY = window.innerHeight / 2;
 
 function init() {
     const canvas = document.getElementById('bg-canvas');
@@ -55,7 +80,7 @@ function init() {
     camera.position.z = 1000;
 
     // Particles
-    const particleCount = 5000;
+    const particleCount = window.innerWidth < 768 ? 2000 : 5000; // Fewer particles on mobile
     const particlesGeometry = new THREE.BufferGeometry();
     const posArray = new Float32Array(particleCount * 3);
 
@@ -87,17 +112,21 @@ function init() {
 }
 
 function onWindowResize() {
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function onDocumentMouseMove(event) {
+    if (window.innerWidth < 1024) return; // Disable mouse move effect on tablet/mobile
     mouseX = (event.clientX - windowHalfX) / 2;
     mouseY = (event.clientY - windowHalfY) / 2;
 }
 
 function animate() {
+    if (!renderer) return;
     requestAnimationFrame(animate);
 
     const time = Date.now() * 0.00005;
@@ -106,8 +135,10 @@ function animate() {
     camera.position.y += (-mouseY - camera.position.y) * 0.03;
     camera.lookAt(scene.position);
 
-    particles.rotation.y = time * 0.5;
-    particles.rotation.x = time * 0.25;
+    if (particles) {
+        particles.rotation.y = time * 0.5;
+        particles.rotation.x = time * 0.25;
+    }
 
     renderer.render(scene, camera);
 }
