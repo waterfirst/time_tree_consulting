@@ -2,36 +2,19 @@
 name: Deploy to GitHub Pages
 
 on:
-  # main 브랜치에 푸시될 때 워크플로우를 실행합니다.
   push:
     branches:
       - main
 
-# 워크플로우가 GITHUB_TOKEN을 사용하여 저장소에 쓸 수 있도록 권한을 설정합니다.
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          # 현재 디렉토리('.')의 모든 파일을 업로드합니다.
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v3
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
