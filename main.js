@@ -10,19 +10,18 @@ class FeatureCard extends HTMLElement {
       <style>
         .card {
           padding: 2rem;
-          height: 100%;
-          box-sizing: border-box;
         }
         h3 {
-          font-size: 1.5rem;
-          color: var(--primary-color, #1a237e);
-          margin-top: 0;
-          margin-bottom: 1rem;
+          font-family: 'Noto Sans KR', sans-serif;
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: var(--primary-color, #2c5c3b);
+          margin: 0 0 1rem 0;
         }
-        .content {
+        .content ::slotted(span) {
           font-size: 1rem;
-          line-height: 1.6;
-          color: var(--text-color, #333);
+          line-height: 1.7;
+          color: #444;
         }
       </style>
       <div class="card">
@@ -36,3 +35,13 @@ class FeatureCard extends HTMLElement {
 }
 
 customElements.define('feature-card', FeatureCard);
+
+// 스크롤 이벤트 리스너 추가 - 헤더 그림자 효과
+window.addEventListener('scroll', () => {
+    const header = document.getElementById('main-header');
+    if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
