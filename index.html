@@ -7,6 +7,14 @@
     <title>타임트리 컨설팅 - 13년 차 교사의 과학적 입시 전략</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="icon.svg">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -25,6 +33,7 @@
 
     <main>
         <section class="hero">
+            <canvas id="bg-canvas"></canvas>
             <div class="hero-content">
                 <h1>타임트리 컨설팅</h1>
                 <p>13년 차 과학 교사의 데이터 기반 분석으로, 자녀의 성공적인 입시 로드맵을 설계합니다.</p>
@@ -41,7 +50,7 @@
             </div>
         </section>
 
-        <section id="strengths" style="background-color: var(--light-gray);">
+        <section id="strengths">
             <div class="container">
                 <h2 class="section-title">차원이 다른 3가지 핵심 역량</h2>
                 <div class="strengths-grid">
@@ -75,6 +84,6 @@
         </div>
     </footer>
 
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
